@@ -7,16 +7,9 @@ export class component extends React.Component {
 
   render() {
     return (
-      <div
-        onClick={this.handleClick}
-        // style={{
-        //   cursor: 'pointer',
-        //   padding: '10px',
-        //   border: '1px solid black',
-        //   margin: '0 5px 5px 5px'
-        // }}
-      >
-        {this.props.joke.category}: {this.props.joke.value}
+      <div className="joke" onClick={this.handleClick}>
+        {/* <h3>Category: {this.props.joke.category}</h3> */}
+        <h3>{this.props.joke.value}</h3>
       </div>
     );
   }

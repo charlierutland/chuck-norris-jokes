@@ -1,6 +1,7 @@
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import Modal from 'react-modal';
+import Select from 'react-select';
 
 import { fetchJokes, fetchCategories } from '../../api';
 import { JokesList } from './jokes-list';
@@ -39,19 +40,26 @@ export class component extends React.Component {
         this.props.setJokesReceived();
       });
   };
-  handleChangeCategory = event => {
-    console.log('handleChangeCategory', event.target.value);
-    this.props.setActiveCategory(event.target.value);
+  handleChangeCategory = category => {
+    this.props.setActiveCategory(category);
   };
 
   renderCategories = () => {
+    const options = this.props.categories.map(category => {
+      return { value: category, label: category };
+    });
+
+    const allOptions = [{ value: '', label: 'All Categories' }, { options }];
+
     return (
-      <select value={this.props.category} onChange={this.handleChangeCategory}>
-        <option value="">Show all</option>
-        {this.props.categories.map(category => {
-          return <option key={category}>{category}</option>;
-        })}
-      </select>
+      <div className="select">
+        <Select
+          placeholder={'Select a Category'}
+          value={this.props.category}
+          onChange={this.handleChangeCategory}
+          options={allOptions}
+        />
+      </div>
     );
   };
 
@@ -82,7 +90,16 @@ export class component extends React.Component {
         className="dashboard"
         // style={containerStyles}
       >
-        <h2>JOKES</h2>
+        <div className="navbar">
+          <h2>
+            <img
+              src="https://assets.chucknorris.host/img/avatar/chuck-norris.png"
+              alt="avatar"
+            />
+            Chuck Norris Jokes
+          </h2>
+          {this.renderCategories()}
+        </div>
         <Modal
           isOpen={!!this.state.selectedJoke}
           style={customStyles}
@@ -90,9 +107,15 @@ export class component extends React.Component {
           ariaHideApp={false}
           onRequestClose={this.handleRequestClose}
         >
-          {this.state.selectedJoke && this.state.selectedJoke.value}
+          {this.state.selectedJoke && (
+            <div>
+              <img src={this.state.selectedJoke.icon_url} alt="icon" />
+              <h3>{this.state.selectedJoke.value}</h3>
+              <h4>Category: {this.state.selectedJoke.category}</h4>
+              <h4>{this.state.selectedJoke.url}</h4>
+            </div>
+          )}
         </Modal>
-        {this.renderCategories()}
         <InfiniteScroll
           pageStart={0}
           loadMore={this.handleGetMore}
