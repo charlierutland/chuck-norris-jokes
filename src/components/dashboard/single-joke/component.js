@@ -8,7 +8,6 @@ export class component extends React.Component {
   render() {
     return (
       <div className="joke" onClick={this.handleClick}>
-        {/* <h3>Category: {this.props.joke.category}</h3> */}
         <h3>{this.props.joke.value}</h3>
       </div>
     );

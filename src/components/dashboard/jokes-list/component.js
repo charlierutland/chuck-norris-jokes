@@ -6,7 +6,6 @@ export class component extends React.Component {
   renderJokes = () => {
     return this.props.jokes
       .filter(joke => {
-        // todo: update this
         if (!this.props.category.value) {
           return true;
         }

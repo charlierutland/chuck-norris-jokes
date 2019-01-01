@@ -20,7 +20,11 @@ export const fetchJokes = () => {
             ''
           )
         );
-        return { ...response.data, category: parsed.category };
+        return {
+          ...response.data,
+          category:
+            parsed.category.charAt(0).toUpperCase() + parsed.category.slice(1)
+        };
       })
     );
 };

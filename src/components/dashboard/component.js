@@ -5,12 +5,12 @@ import Select from 'react-select';
 
 import { fetchJokes, fetchCategories } from '../../api';
 import { JokesList } from './jokes-list';
-import spinner from './spinner.gif';
+import loading from './loading.gif';
 
 export class component extends React.Component {
   componentDidMount() {
     this.handleGetMore();
-    // fetchCategories().then(this.props.setCategories);
+
     fetchCategories().then(categories => {
       this.props.setCategories(categories);
     });
@@ -29,7 +29,6 @@ export class component extends React.Component {
   handleGetMore = () => {
     if (this.props.isFetching) return;
     console.log('handleGetMore');
-    // fetchJokes().then(this.props.appendJokes);
     this.props.setJokesFetching();
     fetchJokes()
       .then(jokes => {
@@ -46,7 +45,10 @@ export class component extends React.Component {
 
   renderCategories = () => {
     const options = this.props.categories.map(category => {
-      return { value: category, label: category };
+      return {
+        value: category.charAt(0).toUpperCase() + category.slice(1),
+        label: category.charAt(0).toUpperCase() + category.slice(1)
+      };
     });
 
     const allOptions = [{ value: '', label: 'All Categories' }, { options }];
@@ -71,7 +73,8 @@ export class component extends React.Component {
         right: 'auto',
         bottom: 'auto',
         marginRight: '-50%',
-        transform: 'translate(-50%, -50%)'
+        transform: 'translate(-50%, -50%)',
+        backgroundColor: '#f8fafa'
       }
     };
     const containerStyles = !!this.state.selectedJoke
@@ -80,16 +83,13 @@ export class component extends React.Component {
           height: '100vh'
         }
       : {};
-    const containerClassName = !!this.state.selectedJoke ? 'no-scroll' : '';
+    // const containerClassName = !!this.state.selectedJoke ? 'no-scroll' : '';
     // .no-scroll {
     //   ..
     // }
 
     return (
-      <div
-        className="dashboard"
-        // style={containerStyles}
-      >
+      <div className="dashboard" style={containerStyles}>
         <div className="navbar">
           <h2>
             <img
@@ -112,7 +112,7 @@ export class component extends React.Component {
               <img src={this.state.selectedJoke.icon_url} alt="icon" />
               <h3>{this.state.selectedJoke.value}</h3>
               <h4>Category: {this.state.selectedJoke.category}</h4>
-              <h4>{this.state.selectedJoke.url}</h4>
+              <a href={this.state.selectedJoke.url}> Joke Link</a>
             </div>
           )}
         </Modal>
@@ -123,9 +123,7 @@ export class component extends React.Component {
           initialLoad={false}
           loader={
             this.props.isFetching && (
-              <div className="loader" key={0}>
-                <img width="50" height="50" src={spinner} alt="spinner gif" />
-              </div>
+              <img className="loader" src={loading} key={0} alt="spinner gif" />
             )
           }
         >

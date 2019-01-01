@@ -8,7 +8,7 @@
 }
 
 .select {
-  min-width: 300px;
+  min-width: 40%;
   padding: 10px;
   margin: 10px;
   text-align: left;
@@ -21,4 +21,17 @@ h2 {
   align-items: center;
   padding-left: 10px;
   margin-left: 10px;
+  width: 50%;
+}
+
+.loader {
+  position: fixed;
+  z-index: 999;
+  width: 200px;
+  height: 200px;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
