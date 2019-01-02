@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 
+import 'normalize.css';
 import './index.css';
 import { Dashboard } from './components/dashboard';
 
@@ -12,3 +13,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
+
+// TODO(charlierutland): Eject webpack and make sure build works.

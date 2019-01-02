@@ -22,8 +22,7 @@ export const fetchJokes = () => {
         );
         return {
           ...response.data,
-          category:
-            parsed.category.charAt(0).toUpperCase() + parsed.category.slice(1)
+          category: parsed.category
         };
       })
     );

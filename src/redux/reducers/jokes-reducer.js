@@ -24,3 +24,5 @@ export default function(state = { jokes: [], isFetching: false }, action) {
       return state;
   }
 }
+
+// TODO(charlierutland): Test this reducer.

@@ -14,6 +14,11 @@
   text-align: left;
   color: #6f6e6c;
   font-weight: normal;
+  text-transform: capitalize;
+}
+
+.modal {
+  text-transform: capitalize;
 }
 
 h2 {
@@ -34,4 +39,8 @@ h2 {
   left: 0;
   bottom: 0;
   right: 0;
+}
+.dashboard.no-scroll {
+  overflow: hidden;
+  height: 100vh;
 }

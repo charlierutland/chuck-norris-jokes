@@ -1,6 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export class component extends React.Component {
+  static propTypes = {
+    joke: PropTypes.object.isRequired,
+    selectJoke: PropTypes.func.isRequired
+  };
+
   handleClick = () => {
     this.props.selectJoke(this.props.joke);
   };

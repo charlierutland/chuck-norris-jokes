@@ -1,8 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { SingleJoke } from '../single-joke';
 
 export class component extends React.Component {
+  static propTypes = {
+    category: PropTypes.string.isRequired,
+    jokes: PropTypes.array.isRequired,
+    selectJoke: PropTypes.func.isRequired
+  };
+
   renderJokes = () => {
     return this.props.jokes
       .filter(joke => {

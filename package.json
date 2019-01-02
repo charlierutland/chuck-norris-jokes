@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "lodash": "^4.17.11",
+    "normalize.css": "^8.0.1",
     "qs": "^6.6.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",

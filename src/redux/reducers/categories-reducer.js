@@ -10,3 +10,5 @@ export default function(state = { categories: [], category: '' }, action) {
       return state;
   }
 }
+
+// TODO(charlierutland): Test this reducer.

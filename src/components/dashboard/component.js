@@ -2,12 +2,25 @@ import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import Modal from 'react-modal';
 import Select from 'react-select';
+import PropTypes from 'prop-types';
 
 import { fetchJokes, fetchCategories } from '../../api';
 import { JokesList } from './jokes-list';
 import loading from './loading.gif';
 
 export class component extends React.Component {
+  static propTypes = {
+    setCategories: PropTypes.func.isRequired,
+    appendJokes: PropTypes.func.isRequired,
+    setJokesFetching: PropTypes.func.isRequired,
+    setJokesReceived: PropTypes.func.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    setActiveCategory: PropTypes.func.isRequired,
+    categories: PropTypes.array.isRequired,
+    category: PropTypes.string.isRequired,
+    jokes: PropTypes.array.isRequired
+  };
+
   componentDidMount() {
     this.handleGetMore();
 
@@ -28,7 +41,6 @@ export class component extends React.Component {
 
   handleGetMore = () => {
     if (this.props.isFetching) return;
-    console.log('handleGetMore');
     this.props.setJokesFetching();
     fetchJokes()
       .then(jokes => {
@@ -44,10 +56,11 @@ export class component extends React.Component {
   };
 
   renderCategories = () => {
+    // TODO(charlierutland): Maybe estract this to a util file and test it.
     const options = this.props.categories.map(category => {
       return {
-        value: category.charAt(0).toUpperCase() + category.slice(1),
-        label: category.charAt(0).toUpperCase() + category.slice(1)
+        value: category,
+        label: category
       };
     });
 
@@ -77,19 +90,11 @@ export class component extends React.Component {
         backgroundColor: '#f8fafa'
       }
     };
-    const containerStyles = !!this.state.selectedJoke
-      ? {
-          overflow: 'hidden',
-          height: '100vh'
-        }
-      : {};
-    // const containerClassName = !!this.state.selectedJoke ? 'no-scroll' : '';
-    // .no-scroll {
-    //   ..
-    // }
+
+    const containerClassName = !!this.state.selectedJoke ? 'no-scroll' : '';
 
     return (
-      <div className="dashboard" style={containerStyles}>
+      <div className={`dashboard ${containerClassName}`}>
         <div className="navbar">
           <h2>
             <img
@@ -100,22 +105,27 @@ export class component extends React.Component {
           </h2>
           {this.renderCategories()}
         </div>
-        <Modal
-          isOpen={!!this.state.selectedJoke}
-          style={customStyles}
-          contentLabel="Example Modal"
-          ariaHideApp={false}
-          onRequestClose={this.handleRequestClose}
-        >
-          {this.state.selectedJoke && (
-            <div>
-              <img src={this.state.selectedJoke.icon_url} alt="icon" />
-              <h3>{this.state.selectedJoke.value}</h3>
-              <h4>Category: {this.state.selectedJoke.category}</h4>
-              <a href={this.state.selectedJoke.url}> Joke Link</a>
-            </div>
-          )}
-        </Modal>
+        <div className="modalContainer">
+          <Modal
+            isOpen={!!this.state.selectedJoke}
+            style={customStyles}
+            ariaHideApp={false}
+            onRequestClose={this.handleRequestClose}
+          >
+            {this.state.selectedJoke && (
+              <div className="modal">
+                <img src={this.state.selectedJoke.icon_url} alt="icon" />
+                <h3>{this.state.selectedJoke.value}</h3>
+                <h4>Category: {this.state.selectedJoke.category}</h4>
+                <a href={this.state.selectedJoke.url} target="blank">
+                  {' '}
+                  Joke Link
+                </a>
+              </div>
+            )}
+          </Modal>
+        </div>
+
         <InfiniteScroll
           pageStart={0}
           loadMore={this.handleGetMore}
