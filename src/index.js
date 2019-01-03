@@ -14,4 +14,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-// TODO(charlierutland): Eject webpack and make sure build works.
+// TODO: Eject webpack and make sure build works.

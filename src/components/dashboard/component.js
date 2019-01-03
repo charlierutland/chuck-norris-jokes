@@ -56,7 +56,6 @@ export class component extends React.Component {
   };
 
   renderCategories = () => {
-    // TODO(charlierutland): Maybe estract this to a util file and test it.
     const options = this.props.categories.map(category => {
       return {
         value: category,
