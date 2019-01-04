@@ -52,7 +52,7 @@ export class component extends React.Component {
       });
   };
   handleChangeCategory = category => {
-    this.props.setActiveCategory(category);
+    this.props.setActiveCategory(category.value);
   };
 
   renderCategories = () => {
@@ -64,12 +64,14 @@ export class component extends React.Component {
     });
 
     const allOptions = [{ value: '', label: 'All Categories' }, { options }];
-
+    const value = this.props.category
+      ? { value: this.props.category, label: this.props.category }
+      : null;
     return (
       <div className="select">
         <Select
           placeholder={'Select a Category'}
-          value={this.props.category}
+          value={value}
           onChange={this.handleChangeCategory}
           options={allOptions}
         />

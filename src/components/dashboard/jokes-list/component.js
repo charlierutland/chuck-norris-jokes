@@ -13,10 +13,10 @@ export class component extends React.Component {
   renderJokes = () => {
     return this.props.jokes
       .filter(joke => {
-        if (!this.props.category.value) {
+        if (!this.props.category) {
           return true;
         }
-        return joke.category === this.props.category.value;
+        return joke.category === this.props.category;
       })
       .map(joke => (
         <SingleJoke

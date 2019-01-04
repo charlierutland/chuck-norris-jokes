@@ -13,5 +13,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-
-// TODO: Eject webpack and make sure build works.

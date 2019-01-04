@@ -1,4 +1,4 @@
-// TODO(charlierutland): You should update this readme to reflect your project.
+// TODO: Update readme to reflect project.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
